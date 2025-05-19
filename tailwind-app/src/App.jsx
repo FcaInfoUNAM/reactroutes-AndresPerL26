@@ -1,5 +1,10 @@
 import './App.css'
 import Card from './Card'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import About from './About';
+import ContactUs from './ContactUs';
+import TeamSection from './TeamSection';
+import NoPage from './NoPage';
 
 
 function App() {
@@ -54,16 +59,35 @@ function App() {
       b64Image: "https://picsum.photos/seed/Y5knt1/640/480",
       properties: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
     }];
-  return (
+  return ( 
+    
     <>
-    <div key="product-grid" className="bg-orange-500 p-8 grid grid-cols-4 gap-4">      
-        {products.map(e=><div key={e.model+"div"}><Card key={e.model} title={e.name} paragraph={e.properties} image={e.b64Image} model={e.model}/></div>)}
-    </div>
-    <div>
-    {/* <ContactUs/>
-    <TeamSection/>
-    <About/> */}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        /* Ruta principal (/) */
+        <Route 
+          path="/" 
+          element={
+            <div key="product-grid" className="bg-orange-500 p-8 grid grid-cols-4 gap-4">      
+              {products.map(e => (
+                <div key={e.model + "div"}>
+                  <Card key={e.model} title={e.name} paragraph={e.properties} image={e.b64Image} model={e.model}/>
+                </div>
+              ))}
+            </div>
+          } 
+        />
+        
+        
+        <Route path="/Contact" element={<ContactUs />} />
+        <Route path="/Team" element={<TeamSection />} />
+        <Route path="/About" element={<About />} />
+        
+        
+        <Route path="*" element={<NoPage />} />
+      </Routes>
+    </BrowserRouter>
+
     </>
   )
 }
